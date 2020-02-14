@@ -1,0 +1,71 @@
+.PopupNameBlur {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.PopupName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 400px;
+  height: 250px;
+  font-size: 25px;
+  background: #dcdcdc;
+  border-radius: 10px;
+}
+
+.PopupName h2 {
+  margin: 0;
+  padding-bottom: 25px;
+}
+.PopupName button {
+  width: 110px;
+  height: 40px;
+  border-radius: 5px;
+  margin-left: 7px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  font-size: 15px;
+  color: black;
+  transition: 0.2s all ease-in-out;
+}
+
+.PopupName button:active {
+  outline: none;
+}
+
+.PopupName button:focus {
+  outline: none !important;
+}
+
+.PopupName button::-moz-focus-inner {
+  border: 0;
+}
+
+.PopupName button:hover {
+  background: #7fffd4;
+}
+
+.PopupName input {
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  color: black;
+  font-size: 18px;
+}
+
+.PopupName input:focus {
+  outline: 1px solid #40e0d0;
+}

@@ -1,0 +1,59 @@
+.Comment {
+  width: 100%;
+  height: 100%;
+  background: white;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.Comment span {
+  font-weight: bold;
+}
+
+.CommentRedact,
+.CommentRemove {
+  text-decoration: none;
+  margin-right: 10px;
+  color: #5e6c84;
+  transition: 0.2s all ease-in-out;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.CommentRedact:hover {
+  color: #000;
+}
+.CommentRemove:hover {
+  color: #000;
+}
+
+.CommentChangeTextArea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 18px;
+  resize: none;
+  border: none;
+}
+
+.CommentChangeButton {
+  color: white;
+  width: 100px;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: 0.2s all ease-in-out;
+  background: #5aac44;
+  margin-right: 10px;
+}
+
+.CommentChangeButton:hover {
+  background: #2e8b57;
+}

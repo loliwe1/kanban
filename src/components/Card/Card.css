@@ -1,0 +1,36 @@
+.Card {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  background: #fff;
+  margin-top: 5px;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+}
+
+/* .Card:hover input {
+  background: #dcdcdc;
+} */
+
+.Card:hover {
+  background: #dcdcdc;
+}
+
+.CardClose {
+  text-align: right;
+  width: 70px;
+  height: 100%;
+  margin-left: 180px;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+}
+
+.CardClose:hover {
+  color: #40e0d0;
+}
+
+.Card input {
+  cursor: pointer;
+  border: none;
+  /* background: #fff; */
+}
