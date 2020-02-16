@@ -1,4 +1,4 @@
-.Comments {
+.Comment {
   width: 100%;
   height: 100%;
   background: white;
@@ -9,12 +9,12 @@
   padding: 10px;
 }
 
-.Comments span {
+.Comment span {
   font-weight: bold;
 }
 
-.CommentsRedact,
-.CommentsRemove {
+.CommentRedact,
+.CommentRemove {
   text-decoration: none;
   margin-right: 10px;
   color: #5e6c84;
@@ -25,10 +25,10 @@
   display: inline-block;
 }
 
-.CommentsRedact:hover {
+.CommentRedact:hover {
   color: #000;
 }
-.CommentsRemove:hover {
+.CommentRemove:hover {
   color: #000;
 }
 

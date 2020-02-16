@@ -3,13 +3,10 @@ import "./Card.css";
 
 const Card = props => {
   return (
-    <div onClick={props.openActiveCard} className="Card">
-      <div className="CardClose" onClick={props.deleteCard}>
-        &#10008;
-      </div>
-      <h3>{props.name}</h3>
+    <div onClick={props.openPopupCard} className="Card">
+      <h3>{props.title}</h3>
       <small>
-        Комментарии: <span>{props.comments}</span>
+        Комментарии: <span>{props.commentsLength}</span>
       </small>
     </div>
   );

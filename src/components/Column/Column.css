@@ -1,4 +1,4 @@
-.Coloms {
+.Column {
   width: 270px;
   height: 100%;
   min-height: 100px;
@@ -9,7 +9,17 @@
   border-radius: 5px;
 }
 
-.ColomsTextarea {
+.ColumnTitle {
+  width: 100%;
+  height: 100%;
+  min-height: 50px;
+}
+.ColumnTitle:focus {
+  outline: 1px solid #40e0d0;
+  background: white;
+}
+
+/* .ColumnTextarea {
   background: #ebecf0;
   cursor: pointer;
   width: 100%;
@@ -20,12 +30,12 @@
   resize: none;
   overflow: hidden;
 }
-.ColomsTextarea:focus {
+.ColumnTextarea:focus {
   outline: 1px solid #40e0d0;
   background: white;
-}
+} */
 
-.Coloms p {
+.Column p {
   width: 100%;
   height: 35px;
   padding-top: 5px;
@@ -34,6 +44,6 @@
   border-radius: 5px;
 }
 
-.Coloms p:hover {
+.Column p:hover {
   background: #dcdcdc;
 }

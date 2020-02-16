@@ -1,4 +1,4 @@
-.ActiveCard {
+.PopupCard {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -12,7 +12,7 @@
   z-index: 2;
 }
 
-.ActiveCardWrap {
+.PopupCardWrap {
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -26,10 +26,31 @@
   overflow: hidden;
   padding-bottom: 100px;
 }
-.ActiveCardClose {
+.TitleStyle {
+  overflow: hidden;
+  height: 70px;
+  width: 100%;
+  transition: 0.2s all ease-in-out;
+  border-radius: 5px;
+  padding: 10px;
+}
+.TitleStyleFocus {
+  height: 150px;
+  background: #fff;
+}
+.TitleHeader {
+  width: 100%;
+  height: 70px;
+  outline: none;
+}
+.TitleHeader:focus {
+  background: #fff;
+}
+
+.PopupCardClose {
   text-align: right;
 }
-.ActiveCardCloseLink {
+.PopupCardCloseLink {
   text-decoration: none;
   margin-right: 10px;
   color: #5e6c84;
@@ -42,7 +63,7 @@
   display: inline-block;
 }
 
-.ActiveCardCloseLink:hover {
+.PopupCardCloseLink:hover {
   color: #000;
 }
 
@@ -74,6 +95,7 @@
   border-radius: 5px;
   font-size: 18px;
   transition: 0.2s all ease-in-out;
+  outline: none;
 }
 
 .SaveTitle:hover {
@@ -91,6 +113,7 @@
   color: white;
   font-size: 18px;
   transition: 0.2s all ease-in-out;
+  outline: none;
 }
 
 .CloseTitle:hover {
@@ -115,25 +138,25 @@
   outline: 1px solid #5e6c84;
 }
 
-.ActiveCardTitle {
+.PopupCardTitle {
   margin-bottom: 35px;
 }
 
-.ActiveCardTitle h1 {
+.PopupCardTitle h1 {
   padding: 0;
   margin: 0;
   margin-bottom: 5px;
 }
 
-.ActiveCardTitle small {
+.PopupCardTitle small {
   color: #5e6c84;
   font-size: 14px;
 }
-.ActiveCardTitle span {
+.PopupCardTitle span {
   font-weight: bold;
 }
 
-.ActiveCardTitle p {
+.PopupCardTitle p {
   text-align: right;
   color: #5e6c84;
 }
@@ -169,9 +192,10 @@
   width: 100%;
   border: none;
   cursor: pointer;
+  outline: none;
 }
 
-.WriteCommentButton {
+.PostCommentButton {
   margin-left: 10px;
   margin-top: 10px;
   background-color: #5aac44;
@@ -187,7 +211,7 @@
   transition: 0.2s all ease-in-out;
 }
 
-.WriteCommentButton:hover {
+.PostCommentButton:hover {
   background: #2e8b57;
 }
 
@@ -201,6 +225,8 @@
   border-radius: 5px;
   color: white;
   transition: 0.2s all ease-in-out;
+  font-size: 16px;
+  outline: none;
 }
 
 .RemoveCard:hover {
