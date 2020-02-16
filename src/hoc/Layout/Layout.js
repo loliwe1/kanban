@@ -26,6 +26,10 @@ class Layout extends React.Component {
     nextCardId: JSON.parse(localStorage.getItem("nextCardId")) || 1,
     nextCommentId: JSON.parse(localStorage.getItem("nextCommentId")) || 1,
 
+<<<<<<< HEAD
+=======
+    nameText: "",
+>>>>>>> b79e2a1fbb202d0ddc001ed8b6a31c17c4d8c9c4
     popupCard: ""
   };
 
@@ -57,9 +61,22 @@ class Layout extends React.Component {
     localStorage.setItem("nextCardId", JSON.stringify(nextCardId));
   };
 
+<<<<<<< HEAD
   saveNameHand = name => {
     this.setState({ name });
     localStorage.setItem("name", name);
+=======
+  changeNameHand = e => {
+    this.setState({ nameText: e.target.value });
+  };
+
+  saveNameHand = () => {
+    if (!this.state.nameText) return;
+
+    const name = this.state.nameText;
+    this.setState({ name });
+    localStorage.setItem("name", JSON.stringify(name));
+>>>>>>> b79e2a1fbb202d0ddc001ed8b6a31c17c4d8c9c4
   };
 
   openPopupCard = id => {
@@ -71,10 +88,19 @@ class Layout extends React.Component {
     this.setState({ popupCard: "" });
   };
 
+<<<<<<< HEAD
   changeDescription = (value, cardId) => {
     const cards = this.state.cards;
     const id = cards.findIndex(card => card.id === cardId);
     cards[id].description = value;
+=======
+  changeDescription = e => {
+    const cardId = this.state.popupCard.id;
+    const cards = this.state.cards;
+
+    const id = cards.findIndex(card => card.id === cardId);
+    cards[id].description = e.target.value;
+>>>>>>> b79e2a1fbb202d0ddc001ed8b6a31c17c4d8c9c4
 
     this.setState({ cards });
     localStorage.setItem("cards", JSON.stringify(cards));
@@ -93,7 +119,12 @@ class Layout extends React.Component {
     localStorage.setItem("cards", JSON.stringify(cards));
   };
 
+<<<<<<< HEAD
   removeCard = cardId => {
+=======
+  removeCard = () => {
+    const cardId = this.state.popupCard.id;
+>>>>>>> b79e2a1fbb202d0ddc001ed8b6a31c17c4d8c9c4
     const cards = this.state.cards.concat();
     const id = cards.findIndex(card => card.id === cardId);
     cards.splice(id, 1);
@@ -110,6 +141,10 @@ class Layout extends React.Component {
 
   postComment = comment => {
     comment.cardId = this.state.popupCard.id;
+<<<<<<< HEAD
+=======
+    comment.creator = this.state.popupCard.creator;
+>>>>>>> b79e2a1fbb202d0ddc001ed8b6a31c17c4d8c9c4
     comment.id = this.state.nextCommentId;
     comment.author = this.state.name;
 
@@ -121,7 +156,10 @@ class Layout extends React.Component {
 
     this.setState({ comments, nextCommentId });
     localStorage.setItem("comments", JSON.stringify(comments));
+<<<<<<< HEAD
     localStorage.setItem("nextCommentId", JSON.stringify(nextCommentId));
+=======
+>>>>>>> b79e2a1fbb202d0ddc001ed8b6a31c17c4d8c9c4
   };
 
   columnTitle = () => {
@@ -138,9 +176,17 @@ class Layout extends React.Component {
     return comments;
   };
 
+<<<<<<< HEAD
   saveChangesComment = ({ commentText, id }) => {
     const comments = this.state.comments;
     comments.find(comment => comment.id === id).commentText = commentText;
+=======
+  changeCommentText = ({ commentText }) => {
+    const comments = this.state.comments;
+    comments.find(
+      comment => comment.cardId === this.state.popupCard.id
+    ).commentText = commentText;
+>>>>>>> b79e2a1fbb202d0ddc001ed8b6a31c17c4d8c9c4
 
     this.setState({ comments });
     localStorage.setItem("comments", JSON.stringify(comments));
@@ -192,18 +238,29 @@ class Layout extends React.Component {
         {this.state.popupCard ? (
           <PopupCard
             name={this.state.name}
+<<<<<<< HEAD
             creator={this.state.popupCard.creator}
+=======
+>>>>>>> b79e2a1fbb202d0ddc001ed8b6a31c17c4d8c9c4
             cardId={this.state.popupCard.id}
             title={this.state.popupCard.title}
             description={this.state.popupCard.description}
             column={this.columnTitle()}
             comments={this.commentsCard()}
             closePopupCard={this.closePopupCard}
+<<<<<<< HEAD
             changeDesc={this.changeDescription}
             saveTitle={this.saveTitle}
             removeCard={this.removeCard}
             postComment={this.postComment}
             saveChangesComment={this.saveChangesComment}
+=======
+            changeDescription={this.changeDescription}
+            saveTitle={this.saveTitle}
+            removeCard={this.removeCard}
+            postComment={this.postComment}
+            changeCommentText={this.changeCommentText}
+>>>>>>> b79e2a1fbb202d0ddc001ed8b6a31c17c4d8c9c4
             deleteComment={this.deleteComment}
             changeTitlePopupCard={this.changeTitlePopupCard}
           />
