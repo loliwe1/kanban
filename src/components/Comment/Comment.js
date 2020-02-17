@@ -66,7 +66,7 @@ class Comment extends React.Component {
             Redact
           </p>
           <p onClick={this.deleteComment} className="CommentRemove">
-            Remove
+            Remove!
           </p>
         </div>
       );

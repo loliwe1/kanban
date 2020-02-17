@@ -30,9 +30,14 @@ class PopupCard extends React.Component {
   descRef = e => {
     this.textInputDesc = e;
   };
+<<<<<<< HEAD
 
   setCommentInputRef = e => {
     this.commentInput = e;
+=======
+  clearRef = e => {
+    this.textInputEmpty = e;
+>>>>>>> 5f433637f478609a5173b22abc405039d7eed476
   };
 
   changeDesc = () => {
@@ -53,7 +58,11 @@ class PopupCard extends React.Component {
 
     postComment({ commentText });
     this.setState({ commentText: "" });
+<<<<<<< HEAD
     this.commentInput.value = "";
+=======
+    this.textInputEmpty.value = "";
+>>>>>>> 5f433637f478609a5173b22abc405039d7eed476
   };
 
   renderComments = () => {
@@ -115,6 +124,7 @@ class PopupCard extends React.Component {
     removeCard(cardId);
   };
 
+<<<<<<< HEAD
   componentDidMount() {
     window.addEventListener("keydown", this.closePopupOnEsc);
   }
@@ -129,6 +139,8 @@ class PopupCard extends React.Component {
     }
   };
 
+=======
+>>>>>>> 5f433637f478609a5173b22abc405039d7eed476
   render() {
     const commentClass = ["WriteCommentWrap"];
 
@@ -165,7 +177,11 @@ class PopupCard extends React.Component {
               onChange={this.saveCommentText}
               className="WriteComment"
               placeholder="write a comment..."
+<<<<<<< HEAD
               ref={this.setCommentInputRef}
+=======
+              ref={this.clearRef}
+>>>>>>> 5f433637f478609a5173b22abc405039d7eed476
             ></textarea>
             <button onClick={this.postComment} className="PostCommentButton">
               Save
