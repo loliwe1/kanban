@@ -26,7 +26,6 @@ class Layout extends React.Component {
     nextCardId: JSON.parse(localStorage.getItem("nextCardId")) || 1,
     nextCommentId: JSON.parse(localStorage.getItem("nextCommentId")) || 1,
 
-    nameText: "",
     popupCard: ""
   };
 
@@ -58,16 +57,9 @@ class Layout extends React.Component {
     localStorage.setItem("nextCardId", JSON.stringify(nextCardId));
   };
 
-  changeNameHand = e => {
-    this.setState({ nameText: e.target.value });
-  };
-
-  saveNameHand = () => {
-    if (!this.state.nameText) return;
-
-    const name = this.state.nameText;
+  saveNameHand = name => {
     this.setState({ name });
-    localStorage.setItem("name", JSON.stringify(name));
+    localStorage.setItem("name", name);
   };
 
   openPopupCard = id => {
@@ -79,12 +71,10 @@ class Layout extends React.Component {
     this.setState({ popupCard: "" });
   };
 
-  changeDescription = e => {
-    const cardId = this.state.popupCard.id;
+  changeDescription = (value, cardId) => {
     const cards = this.state.cards;
-
     const id = cards.findIndex(card => card.id === cardId);
-    cards[id].description = e.target.value;
+    cards[id].description = value;
 
     this.setState({ cards });
     localStorage.setItem("cards", JSON.stringify(cards));
@@ -103,8 +93,7 @@ class Layout extends React.Component {
     localStorage.setItem("cards", JSON.stringify(cards));
   };
 
-  removeCard = () => {
-    const cardId = this.state.popupCard.id;
+  removeCard = cardId => {
     const cards = this.state.cards.concat();
     const id = cards.findIndex(card => card.id === cardId);
     cards.splice(id, 1);
@@ -121,7 +110,6 @@ class Layout extends React.Component {
 
   postComment = comment => {
     comment.cardId = this.state.popupCard.id;
-    comment.creator = this.state.popupCard.creator;
     comment.id = this.state.nextCommentId;
     comment.author = this.state.name;
 
@@ -133,27 +121,26 @@ class Layout extends React.Component {
 
     this.setState({ comments, nextCommentId });
     localStorage.setItem("comments", JSON.stringify(comments));
+    localStorage.setItem("nextCommentId", JSON.stringify(nextCommentId));
   };
 
-  columnTitle = () => {
+  findColumnTitle = () => {
     const title = this.state.columns.find(
       column => column.id === this.state.popupCard.columnId
     ).title;
     return title;
   };
 
-  commentsCard = () => {
+  filtersComments = () => {
     const comments = this.state.comments.filter(
       comment => comment.cardId === this.state.popupCard.id
     );
     return comments;
   };
 
-  changeCommentText = ({ commentText }) => {
+  saveChangesComment = ({ commentText, id }) => {
     const comments = this.state.comments;
-    comments.find(
-      comment => comment.cardId === this.state.popupCard.id
-    ).commentText = commentText;
+    comments.find(comment => comment.id === id).commentText = commentText;
 
     this.setState({ comments });
     localStorage.setItem("comments", JSON.stringify(comments));
@@ -196,30 +183,31 @@ class Layout extends React.Component {
             />
           );
         })}
-        {this.state.name ? null : (
+        {this.state.name && (
           <PopupName
             changeName={this.changeNameHand}
             saveName={this.saveNameHand}
           />
         )}
-        {this.state.popupCard ? (
+        {this.state.popupCard && (
           <PopupCard
             name={this.state.name}
+            creator={this.state.popupCard.creator}
             cardId={this.state.popupCard.id}
             title={this.state.popupCard.title}
             description={this.state.popupCard.description}
-            column={this.columnTitle()}
-            comments={this.commentsCard()}
+            column={this.findColumnTitle()}
+            comments={this.filtersComments()}
             closePopupCard={this.closePopupCard}
-            changeDescription={this.changeDescription}
+            changeDesc={this.changeDescription}
             saveTitle={this.saveTitle}
             removeCard={this.removeCard}
             postComment={this.postComment}
-            changeCommentText={this.changeCommentText}
+            saveChangesComment={this.saveChangesComment}
             deleteComment={this.deleteComment}
             changeTitlePopupCard={this.changeTitlePopupCard}
           />
-        ) : null}
+        )}
       </div>
     );
   }

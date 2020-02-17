@@ -8,9 +8,6 @@ class Comment extends React.Component {
   };
 
   redactComment = () => {
-    console.log(this.props.name);
-    console.log(this.props.author);
-    console.log(this.props.name !== this.props.author);
     if (this.props.name !== this.props.author) return;
     this.setState({
       changeComment: true,
@@ -22,25 +19,24 @@ class Comment extends React.Component {
     this.setState({ commentText: event.target.value });
   };
 
-  changeCommentText = () => {
+  saveChangesComment = () => {
     if (!this.state.commentText) return;
 
     const { commentText } = this.state;
-    const { changeCommentText } = this.props;
+    const { saveChangesComment, id } = this.props;
 
-    changeCommentText({ commentText });
+    saveChangesComment({ commentText, id });
     this.setState({ changeComment: false });
   };
 
   deleteComment = () => {
     if (this.props.name !== this.props.author) return;
-    const { id } = this.props;
-    const { deleteComment } = this.props;
+    const { deleteComment, id } = this.props;
 
     deleteComment({ id });
   };
 
-  commentRender = () => {
+  renderComment = () => {
     if (this.state.changeComment) {
       return (
         <div>
@@ -51,7 +47,7 @@ class Comment extends React.Component {
             onChange={this.changeComment}
           />
           <button
-            onClick={this.changeCommentText}
+            onClick={this.saveChangesComment}
             className="CommentChangeButton"
           >
             Save
@@ -62,7 +58,7 @@ class Comment extends React.Component {
       return (
         <div>
           <p>
-            <span>{this.props.creator}&#160;:</span>
+            <span>{this.props.author}&#160;:</span>
           </p>
           <p>{this.props.commentText}</p>
           <hr />
@@ -78,7 +74,7 @@ class Comment extends React.Component {
   };
 
   render() {
-    return <div className="Comment">{this.commentRender()}</div>;
+    return <div className="Comment">{this.renderComment()}</div>;
   }
 }
 

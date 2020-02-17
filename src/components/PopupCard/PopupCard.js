@@ -4,27 +4,16 @@ import Comment from "../Comment/Comment";
 
 class PopupCard extends React.Component {
   state = {
-    writeCommentFocus: false,
-    activeTitle: false,
-    newTitle: "",
+    commentFormFocus: false,
     commentText: ""
   };
 
-  writeCommentFocus = () => {
-    this.setState({ writeCommentFocus: true });
+  focusCommentForm = () => {
+    this.setState({ commentFormFocus: true });
   };
 
-  writeCommentBlur = () => {
-    this.setState({ writeCommentFocus: false });
-  };
-
-  changeTitleActive = () => {
-    this.setState({ activeTitle: true });
-  };
-
-  closeTitle = () => {
-    if (this.state.newTitle) return;
-    this.setState({ activeTitle: false });
+  blurCommentForm = () => {
+    this.setState({ commentFormFocus: false });
   };
 
   changeTitlePopupCard = () => {
@@ -38,37 +27,45 @@ class PopupCard extends React.Component {
     this.textInput = element;
   };
 
+  descRef = e => {
+    this.textInputDesc = e;
+  };
+
+  setCommentInputRef = e => {
+    this.commentInput = e;
+  };
+
+  changeDesc = () => {
+    const value = this.textInputDesc.textContent;
+    const { changeDesc, cardId } = this.props;
+
+    changeDesc(value, cardId);
+  };
+
   saveCommentText = e => {
     this.setState({ commentText: e.target.value });
   };
+
   postComment = () => {
     if (!this.state.commentText) return;
     const { commentText } = this.state;
     const { postComment } = this.props;
 
     postComment({ commentText });
-
     this.setState({ commentText: "" });
-  };
-
-  changeCommentText = ({ commentText }) => {
-    const { changeCommentText } = this.props;
-
-    changeCommentText({ commentText });
+    this.commentInput.value = "";
   };
 
   renderComments = () => {
     if (!this.props.comments) return;
-
     return this.props.comments.map((comment, i) => {
       return (
         <Comment
-          name={this.props.name}
           author={comment.author}
           key={i}
           commentText={comment.commentText}
-          creator={comment.creator}
-          changeCommentText={this.changeCommentText}
+          name={this.props.name}
+          saveChangesComment={this.props.saveChangesComment}
           id={comment.id}
           deleteComment={this.props.deleteComment}
         />
@@ -76,11 +73,67 @@ class PopupCard extends React.Component {
     });
   };
 
-  render() {
-    const writeCommentClassNames = ["WriteCommentWrap"];
+  renderTitle = () => {
+    if (this.props.creator === this.props.name) {
+      return (
+        <h1
+          ref={this.setRef}
+          className="TitleHeader"
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+          onBlur={this.changeTitlePopupCard}
+        >
+          {this.props.title}
+        </h1>
+      );
+    } else {
+      return <h1 className="TitleHeader">{this.props.title}</h1>;
+    }
+  };
 
-    if (this.state.writeCommentFocus || this.state.commentText) {
-      writeCommentClassNames.push("WriteCommentWrapFocus");
+  renderDescription = () => {
+    if (this.props.creator !== this.props.name) {
+      return <div className="Description">{this.props.description || ""}</div>;
+    } else {
+      return (
+        <div
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+          className="Description"
+          onBlur={this.changeDesc}
+          ref={this.descRef}
+        >
+          {this.props.description || "Enter a description for the card!"}
+        </div>
+      );
+    }
+  };
+
+  removeCard = () => {
+    if (this.props.creator !== this.props.name) return;
+    const { removeCard, cardId } = this.props;
+    removeCard(cardId);
+  };
+
+  componentDidMount() {
+    window.addEventListener("keydown", this.closePopupOnEsc);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.closePopupOnEsc);
+  }
+
+  closePopupOnEsc = e => {
+    if (e.key === "Escape") {
+      this.props.closePopupCard();
+    }
+  };
+
+  render() {
+    const commentClass = ["WriteCommentWrap"];
+
+    if (this.state.commentFormFocus || this.state.commentText) {
+      commentClass.push("WriteCommentWrapFocus");
     }
 
     return (
@@ -95,52 +148,31 @@ class PopupCard extends React.Component {
             </p>
           </div>
           <div className="PopupCardTitle">
-            <div className="TitleStyle">
-              <h1
-                ref={this.setRef}
-                className="TitleHeader"
-                contentEditable={true}
-                suppressContentEditableWarning={true}
-                onBlur={this.changeTitlePopupCard}
-              >
-                {this.props.title}
-              </h1>
-              <button onClick={this.saveTitle} className="SaveTitle">
-                Save
-              </button>
-              <button onClick={this.closeTitle} className="CloseTitle">
-                Close
-              </button>
-            </div>
+            <div>{this.renderTitle()}</div>
             <small>
               In column: <span>{this.props.column}</span>
             </small>
             <p>
-              Created a card: <span>{this.props.name}</span>
+              Created a card: <span>{this.props.creator}</span>
             </p>
           </div>
-
-          <textarea
-            className="Description"
-            placeholder="Enter a description for the card!"
-            defaultValue={this.props.description}
-            onChange={this.props.changeDescription}
-          ></textarea>
+          {this.renderDescription()}
           <div>Comments:</div>
-          <div className={writeCommentClassNames.join(" ")}>
+          <div className={commentClass.join(" ")}>
             <textarea
-              onFocus={this.writeCommentFocus}
-              onBlur={this.writeCommentBlur}
+              onFocus={this.focusCommentForm}
+              onBlur={this.blurCommentForm}
               onChange={this.saveCommentText}
               className="WriteComment"
               placeholder="write a comment..."
+              ref={this.setCommentInputRef}
             ></textarea>
             <button onClick={this.postComment} className="PostCommentButton">
               Save
             </button>
           </div>
           {this.renderComments()}
-          <button onClick={this.props.removeCard} className="RemoveCard">
+          <button onClick={this.removeCard} className="RemoveCard">
             Remove Card
           </button>
         </div>

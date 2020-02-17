@@ -50,30 +50,29 @@ class Column extends React.Component {
         >
           {this.props.title}
         </div>
-        {this.props.cards
-          ? this.props.cards.map(card => {
-              return (
-                <Card
-                  title={card.title}
-                  key={card.id}
-                  id={card.id}
-                  openPopupCard={() => this.props.openPopupCard(card.id)}
-                  commentsLength={
-                    this.props.comments.filter(
-                      comment => comment.cardId === card.id
-                    ).length
-                  }
-                />
-              );
-            })
-          : null}
+        {this.props.cards &&
+          this.props.cards.map(card => {
+            const commentsLength = this.props.comments.filter(
+              comment => comment.cardId === card.id
+            ).length;
+
+            return (
+              <Card
+                title={card.title}
+                key={card.id}
+                id={card.id}
+                openPopupCard={() => this.props.openPopupCard(card.id)}
+                commentsLength={commentsLength}
+              />
+            );
+          })}
         <p onClick={this.openForm}>&#10010; Добавить карточку</p>
-        {this.state.isOpen ? (
+        {this.state.isOpen && (
           <NewCardForm
             closeForm={this.closeCardForm}
             createNewCard={this.createNewCard}
           />
-        ) : null}
+        )}
       </div>
     );
   }
